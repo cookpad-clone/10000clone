@@ -2,8 +2,6 @@ spring:
   profiles:
     active: local
 
-
-
   mustache:
     expose-session-attributes: true
 
