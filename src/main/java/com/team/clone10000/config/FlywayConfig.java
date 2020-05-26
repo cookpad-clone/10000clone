@@ -1,7 +1,5 @@
 package com.team.clone10000.config;
 
-//import org.flywaydb.core.Flyway;
-
 import org.flywaydb.core.Flyway;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
