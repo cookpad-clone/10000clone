@@ -6,4 +6,5 @@ spring:
 
   mustache:
     expose-session-attributes: true
+    suffix: .html
 
