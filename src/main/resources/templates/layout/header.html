@@ -1,0 +1,134 @@
+{{>layout/head}}
+<!--head-->
+    <script type="text/javascript" src="/js/jquery-ui-1.11.4.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+    <script>
+        $(document).ready(function () {
+            doRTKeyword();
+
+            
+            $("#srhRecipeText").keypress(function (event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    $("#frmTopRecipeSearch").submit();
+                }
+            }).autocomplete({   // 검색창 자동완성기능 
+                delay: 200,
+                source: "/recipe/ajax.html?q_mode=autoComplete",
+                focus: function (event, ui) {
+                    return false;
+                },
+                select: function (event, ui) {
+                    this.value = ui.item.label;
+                    return false;
+                }
+            }).focus();
+
+            $('.ui-autocomplete').css('z-index', '10000');
+        });
+
+
+
+        var curRtword = 2;
+        function doRTKeyword() {
+            var backRtword = (curRtword == 1) ? 2 : 1;
+            $("#RtwordDiv_" + curRtword).hide();
+            $("#RtwordDiv_" + backRtword).show();
+            curRtword = backRtword;
+        }
+    </script>
+
+    <a href="#" id="btnGogoTop" class="rmenu_top" style="display: none;"><span
+            class="glyphicon glyphicon-menu-up"></span></a>
+
+    <div class="gnb">
+        <div class="gnb_top_wrap">
+            <div class="gnb_top">
+                <h1><a href="/index.html"><img src="https://recipe1.ezmember.co.kr/img/logo4.png" alt="로고"></a></h1>
+                <div class="gnb_search">
+                    <form id="frmTopRecipeSearch" method="get" action="/recipe/list.html">
+                        <div class="input-group">
+                            <input id="srhRecipeText" name="q" type="text" class="form-control ui-autocomplete-input"
+                                placeholder="" value="" style="ime-mode:active;" autocomplete="off">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"
+                                    onclick="$('#frmTopRecipeSearch').submit();"><span
+                                        class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="gnb_search_word">
+                        <ul id="RtwordDiv_1" style="">
+                            <li><a href="/recipe/list.html?q=밑반찬">밑반찬</a></li>
+                            <li><a href="/recipe/list.html?q=다이어트">다이어트</a></li>
+                            <li><a href="/recipe/list.html?q=김치">김치</a></li>
+                            <li><a href="/recipe/list.html?q=장아찌">장아찌</a></li>
+                            <li><a href="/recipe/list.html?q=밥도둑">밥도둑</a></li>
+                        </ul>
+                        <ul id="RtwordDiv_2" style="display:none;">
+                            <li><a href="/recipe/list.html?q=찌개">찌개</a></li>
+                            <li><a href="/recipe/list.html?q=국">국</a></li>
+                            <li><a href="/recipe/list.html?q=두부">두부</a></li>
+                            <li><a href="/recipe/list.html?q=오이">오이</a></li>
+                            <li><a href="/recipe/list.html?q=마늘">마늘</a></li>
+                        </ul>
+                        <div class="gnb_search_btn">
+                            <a href="javascript:void(0);" onclick="doRTKeyword()"><img
+                                    src="https://recipe1.ezmember.co.kr/img/btn_arrow2_l.gif" alt="이전"></a>
+                            <a href="javascript:void(0);" onclick="doRTKeyword()"><img
+                                    src="https://recipe1.ezmember.co.kr/img/btn_arrow2_r.gif" alt="다음"></a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="gnb_right">
+                    <li style="position: relative;">
+                        <div
+                            style="position: absolute; width:100px; top: 47px; left: 0; margin-left: -25px;display:none;">
+                            <span style="margin: 0; padding: 0; font-size: 0; display: block; text-align: center;"><img
+                                    src="https://recipe1.ezmember.co.kr/img/icon_arrow10.png" width="8"></span>
+                            <span
+                                style="border-radius: 2px; background: #ffd200; color: #000; display: block; font-size: 11px; padding:2px 5px; text-align: center;">회원가입
+                                +3,000</span>
+                        </div>
+                        <a href="/user/login.html"><img src="https://recipe1.ezmember.co.kr/img/ico_user.png"
+                                alt="로그인"></a>
+                    </li>
+                    <li>
+                        <a id="btnTopWrite" href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
+                            title="" data-original-title="레시피등록"><img
+                                src="https://recipe1.ezmember.co.kr/img/tmn_write.png"></a>
+                        <div class="write_layer document_common_layer" style="display:none;left:-230px;">
+                            <a href="/inbox/insert.html" class="w_layer2"><img
+                                    src="https://recipe1.ezmember.co.kr/img/btn_write1.gif"><span>직접 등록하기</span></a><a
+                                id="btnBlogForm" href="javascript:void(0)" class="w_layer3" data-toggle="modal"
+                                data-target="#divModalBlogForm"><img
+                                    src="https://recipe1.ezmember.co.kr/img/btn_write2.gif"><span>블로그 가져오기</span></a>
+                        </div>
+                    </li>
+                    <li style="margin-left:50px;">
+                        <a href="https://market.android.com/details?id=com.ezhld.recipe" target="_blank"
+                            data-toggle="tooltip" title="" data-original-title="앱다운로드-안드로이드"><img
+                                src="https://recipe1.ezmember.co.kr/img/tmn_app_a.png"></a>
+                    </li>
+                    <li>
+                        <a href="https://itunes.apple.com/kr/app/yoribaeggwa-mangaeyi-resipi/id494190282?mt=8"
+                            target="_blank" data-toggle="tooltip" title="" data-original-title="앱다운로드-애플"><img
+                                src="https://recipe1.ezmember.co.kr/img/tmn_app_i.png"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="gnb_nav">
+            <ul class="gnb_nav_ea10">
+                <li><a href="/index.html">홈</a></li>
+                <li><a href="/recipe/list.html">레시피</a></li>
+                <li><a href="https://www.10000recipe.com/shop/home.html" target="_blank">만개스토어</a></li>
+                <li><a href="/talk/list.html">스토리</a></li>
+                <li><a href="/event/list.html">이벤트</a></li>
+                <li><a id="liTopMenu_brand" href="/brand/home.html">브랜드</a></li>
+                <li><a href="/chef/chef_list.html" class="active">쉐프</a></li>
+            </ul>
+        </div>
+    </div>
+{{>layout/header-modal}}
