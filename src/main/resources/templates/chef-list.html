@@ -7,6 +7,8 @@
             <ul class="nav nav-tabs3" style="position:relative;">
                 <li role="presentation" id="chef_list" class="chef_nav active"><a>쉐프</a></li>
                 <li role="presentation" id="chef_list_follower" class="chef_nav"><a>소식받는쉐프</a></li>
+
+
                 <div class="list_sort">
                     <div class="chef_search">
                         <input type="text" id="user_search_input" value="" class="form-control"
@@ -15,6 +17,9 @@
                     </div>
                 </div>
             </ul>
+
+
+            <!-- 1. 쉐프 목록 -->
             <div id="chef_list_div" class="chef_div">
                 <!-- 쉐프 활동 안내 -->
                 <div class="chef_top2"><img src="https://recipe1.ezmember.co.kr/img/chef_top3.jpg" border="0" usemap="#Map">
@@ -29,6 +34,7 @@
                     <li id="chef_list_new" class="chef_list_nav"><a>새로운쉐프</a></li>
                 </ul>
 
+                <!-- 소식받기 순위에만 해당하는 항목 -->
                 <div class="my_nav2_sub" style="display:none">
                     <p id="ranking_tab_explain">누적 기준 소식받기 많은 쉐프순</p>
                     <div class="dropdown clearfix pull-right">
@@ -61,11 +67,11 @@
                         </ul>
                     </div>
                 </div>
+                <!-- 추가 항목 끝 -->
 
-                <!-- 쉐프 목록 -->
+                <!-- 쉐프 3가지 목록 -->
                 <div class="chef_list4_in">
                 </div>
-
                 <nav class="text-center">
                     <ul class="pagination">
                     <li class="active"><a href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=1">1</a> </li>
@@ -78,13 +84,14 @@
                     </ul>
                 </nav>
             </div> <!--chef_list_div-->
+
+            <!-- 2. 소식 받는 쉐프 목록 -->
             <div id="chef_list_follower_div" class="chef_div" style="display:none;"></div>
         </div>
     </div>
 </div>
 
 <div id="right_area" class="col-xs-3">
-
 </div><!-- /right_area -->
 
 <div class="col-xs-12 sub_bg_btm"></div>
