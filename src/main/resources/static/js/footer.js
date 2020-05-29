@@ -1,4 +1,4 @@
-<script type="text/javascript">
+
             
             $(document).ready(function () {
                 $('#appDownLayerBtn').click(function (e) {
@@ -42,4 +42,3 @@
             });
         }
     
-    </script>

@@ -1,88 +1,12 @@
 
-
 {{>layout/header}}
-
 <script async="" src="/js/header.js"></script>
 <div class="container sub_bg">
-    <script>
-            $(document).ready(function () {
-                dropDownMenuTxtSet('1');
-                dropDownMenuTxtSet('2');
-            });
-
-            $(function () {
-                $("#ranking_tab_title").text('소식받기 순위');
-                $("#ranking_tab_explain").text('누적 기준 소식받기 많은 쉐프순');
-
-
-                $("#user_search_input").keypress(function (e) {
-                    if (e.which == 13) {
-                        searchUser();
-                    }
-                });
-            });
-
-            function searchUser() {
-                var qn = $("#user_search_input").val();
-                if (qn == '') {
-                    location.href = '/chef/chef_list.html?order=chef_no_follower&term=all';
-                }
-                else {
-                    location.href = '/chef/chef_list.html?order=chef_no_follower&qn=' + qn + '&term=all';
-                }
-            }
-
-            function doActFriend(uid) {
-                EZ.ATLogin(); return; var act = $("#btnActFriend_" + uid).attr("fact");
-                var mode = (act == "insert") ? "addFriend" : "removeFriend";
-                $.ajax({
-                    type: "GET",
-                    url: "/profile/ajax.html",
-                    data: "q_mode=" + mode + "&friend=" + uid,
-                    success: function (result) {
-                        if (result == 'SUCCESS') {
-                            var fact = (act == "insert") ? "delete" : "insert";
-                            var fval = (act == "insert") ? "삭제" : "추가";
-                            var msg = (act == 'insert') ? '님을 소식받기에 추가했습니다.' : '님을 소식받기에서 해제했습니다.';
-                            $("#btnActFriend_" + uid).attr("fact", fact);
-
-                            if (act == "insert") $("#btnActFriend_" + uid).html('<span class="glyphicon glyphicon-minus"></span>소식받기해제');
-                            else $("#btnActFriend_" + uid).html('<span class="glyphicon glyphicon-plus"></span>소식받기');
-
-                            var uname = $("#folFriend_" + uid).text().trim();
-
-                            ga('send', 'event', '이웃추가', fval, uname);
-
-                            alert(uname + msg);
-                        }
-                        else {
-                            alert('처리실패. 잠시후 다시 시도해 주세요.');
-                        }
-                    }
-                });
-            }
-
-            function setTerm(val) {
-                location.href = '/chef/chef_list.html?order=chef_no_follower&qn=&term=' + val;
-            }
-
-            function dropDownMenuTxtSet(flag) {
-                if (flag == '1') {
-                    var txt = '누적';
-                    $("#dropdownMenu" + flag).html('<span class="glyphicon glyphicon-calendar"></span>' + txt);
-                }
-                else if (flag == '2') {
-                    var txt = '소식받기순위';
-                    $("#dropdownMenu" + flag).html('<span class="glyphicon glyphicon-align-justify"></span>' + txt);
-                }
-            }
-        </script>
     <div id="contents_area" class="col-xs-9">
         <div class="chef_list4">
-
             <ul class="nav nav-tabs3" style="position:relative;">
-                <li role="presentation" class="active"><a href="/chef/chef_list.html">쉐프</a></li>
-                <li role="presentation"><a href="/chef/chef_list_follower.html">소식받는쉐프</a></li>
+                <li role="presentation" id="chef_list" class="chef_nav active"><a>쉐프</a></li>
+                <li role="presentation" id="chef_list_follower" class="chef_nav"><a>소식받는쉐프</a></li>
                 <div class="list_sort">
                     <div class="chef_search">
                         <input type="text" id="user_search_input" value="" class="form-control"
@@ -91,151 +15,81 @@
                     </div>
                 </div>
             </ul>
-
-            <div class="chef_top2"><img src="https://recipe1.ezmember.co.kr/img/chef_top3.jpg" border="0"
-                                        usemap="#Map">
-                <map name="Map">
-                    <area shape="rect" coords="622,19,737,75" href="/chef/apply.html" alt="쉐프활동자세히보기">
-                </map>
-            </div>
-
-            <ul class="my_nav2">
-                <li id="" class="active"><a href="/chef/chef_list.html" id="ranking_tab_title">소식받기 순위</a></li>
-                <li id=""><a href="/chef/chef_list2.html?order=active">최근활동쉐프</a></li>
-                <li id=""><a href="/chef/chef_list2.html?order=new">새로운쉐프</a></li>
-            </ul>
-
-            <div class="my_nav2_sub">
-                <p id="ranking_tab_explain">누적 기준 소식받기 많은 쉐프순</p>
-                <div class="dropdown clearfix pull-right">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                            data-toggle="dropdown" aria-expanded="false"><span
-                            class="glyphicon glyphicon-calendar"></span>누적</button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
-                                                   onclick="setTerm('all');">누적</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
-                                                   onclick="setTerm('1');">오늘</a></li>
-                    </ul>
+            <div id="chef_list_div" class="chef_div">
+                <!-- 쉐프 활동 안내 -->
+                <div class="chef_top2"><img src="https://recipe1.ezmember.co.kr/img/chef_top3.jpg" border="0" usemap="#Map">
+                    <map name="Map">
+                        <area shape="rect" coords="622,19,737,75" href="/chef/apply.html" alt="쉐프활동자세히보기">
+                    </map>
                 </div>
-                <div class="dropdown clearfix pull-right">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
-                            data-toggle="dropdown" aria-expanded="false"><span
-                            class="glyphicon glyphicon-align-justify"></span>소식받기순위</button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
-                                                   onclick="location.href = '/chef/chef_list.html?qn=&amp;term=all&amp;order=chef_no_follower'">소식받기순위</a>
-                        </li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
-                                                   onclick="location.href = '/chef/chef_list.html?qn=&amp;term=all&amp;order=chef_no_hit'">조회순위</a>
-                        </li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
-                                                   onclick="location.href = '/chef/chef_list.html?qn=&amp;term=all&amp;order=chef_no_scrap'">스크랩순위</a>
-                        </li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
-                                                   onclick="location.href = '/chef/chef_list.html?qn=&amp;term=all&amp;order=chef_no_recipe'">레시피순위</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="chef_list4_in">
 
+                <ul class="my_nav2">
+                    <li id="chef_list_raking" class="chef_list_nav active"><a>소식받기 순위</a></li>
+                    <li id="chef_list_recent" class="chef_list_nav"><a>최근활동쉐프</a></li>
+                    <li id="chef_list_new" class="chef_list_nav"><a>새로운쉐프</a></li>
+                </ul>
 
-                <div class="list_lump">
-                    <div class="list_ranking2">
-                        <p class="list_ranking2_num ">1</p>
-                        <p class="list_ranking2_num2"><span style="color:#fff;" class="glyphicon "></span></p>
+                <div class="my_nav2_sub" style="display:none">
+                    <p id="ranking_tab_explain">누적 기준 소식받기 많은 쉐프순</p>
+                    <div class="dropdown clearfix pull-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="false"><span
+                                class="glyphicon glyphicon-calendar"></span>누적</button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
+                                                       onclick="setTerm('all');">누적</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
+                                                       onclick="setTerm('1');">오늘</a></li>
+                        </ul>
                     </div>
-                    <div class="list_mem3">
-                        <a href="/profile/index.html?uid=jun8707" class="mem_pic"><img
-                                src="/images/chef.jpg"></a>
-                    </div>
-                    <div class="list_cont4"><b>
-                        <a href="/profile/index.html?uid=jun8707" id="folFriend_jun8707" class="info_name_f">
-                            시크제이맘 </a>
-                        <button type="button" class="btn btn-default btn-sm" id="btnActFriend_jun8707"
-                                fact="insert" onclick="doActFriend('jun8707')">
-                            <span class="glyphicon glyphicon-plus"></span>소식받기 </button>
-                    </b>
-                        <span class="mem_cont1">1,601</span><span class="mem_cont3">870,471</span><span
-                                class="mem_cont7">27,362,444</span><span class="mem_cont2">18,963</span>
+                    <div class="dropdown clearfix pull-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-expanded="false"><span
+                                class="glyphicon glyphicon-align-justify"></span>소식받기순위</button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
+                                                       onclick="location.href = '/chef/chef_list.html?qn=&amp;term=all&amp;order=chef_no_follower'">소식받기순위</a>
+                            </li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
+                                                       onclick="location.href = '/chef/chef_list.html?qn=&amp;term=all&amp;order=chef_no_hit'">조회순위</a>
+                            </li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
+                                                       onclick="location.href = '/chef/chef_list.html?qn=&amp;term=all&amp;order=chef_no_scrap'">스크랩순위</a>
+                            </li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"
+                                                       onclick="location.href = '/chef/chef_list.html?qn=&amp;term=all&amp;order=chef_no_recipe'">레시피순위</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
-
-                <div class="list_lump">
-                    <div class="list_ranking2">
-                        <p class="list_ranking2_num ">2</p>
-                        <p class="list_ranking2_num2"><span style="color:#fff;" class="glyphicon "></span></p>
-                    </div>
-                    <div class="list_mem3">
-                        <a href="/profile/index.html?uid=20618485" class="mem_pic"><img
-                                src="https://recipe1.ezmember.co.kr/cache/rpf/2018/07/02/222a8dd2c631192343c20f020dc7196f1.972f06866afed76899aad241f63019e7"></a>
-                    </div>
-                    <div class="list_cont4"><b>
-                        <a href="/profile/index.html?uid=20618485" id="folFriend_20618485" class="info_name_f">
-                            조밍키♥ </a>
-                        <button type="button" class="btn btn-default btn-sm" id="btnActFriend_20618485"
-                                fact="insert" onclick="doActFriend('20618485')">
-                            <span class="glyphicon glyphicon-plus"></span>소식받기 </button>
-                    </b>
-                        <span class="mem_cont1">249</span><span class="mem_cont3">525,174</span><span
-                                class="mem_cont7">10,763,916</span><span class="mem_cont2">13,763</span>
-                    </div>
+                <!-- 쉐프 목록 -->
+                <div class="chef_list4_in">
                 </div>
 
-
-                <div class="list_lump">
-                    <div class="list_ranking2">
-                        <p class="list_ranking2_num ">3</p>
-                        <p class="list_ranking2_num2"><span style="color:#fff;" class="glyphicon "></span></p>
-                    </div>
-                    <div class="list_mem3">
-                        <a href="/profile/index.html?uid=bhs1009833" class="mem_pic"><img
-                                src="https://recipe1.ezmember.co.kr/cache/rpf/2020/03/16/0b6bdf7a9935c550e703447b600fa8e11.fd5534d5e506bae9bcee2ea56d8bfa6c"></a>
-                    </div>
-                    <div class="list_cont4"><b>
-                        <a href="/profile/index.html?uid=bhs1009833" id="folFriend_bhs1009833"
-                           class="info_name_f">
-                            살찌우는엄마 </a>
-                        <button type="button" class="btn btn-default btn-sm" id="btnActFriend_bhs1009833"
-                                fact="insert" onclick="doActFriend('bhs1009833')">
-                            <span class="glyphicon glyphicon-plus"></span>소식받기 </button>
-                    </b>
-                        <span class="mem_cont1">20</span><span class="mem_cont3">127,206</span><span
-                                class="mem_cont7">3,153,553</span><span class="mem_cont2">10,440</span>
-                    </div>
-                </div>
-
-
-
-            </div>
-
-
-
-            <nav class="text-center">
-                <ul class="pagination">
-                    <li class="active"><a
-                            href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=1">1</a>
-                    </li>
+                <nav class="text-center">
+                    <ul class="pagination">
+                    <li class="active"><a href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=1">1</a> </li>
                     <li><a href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=2">2</a></li>
                     <li><a href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=3">3</a></li>
                     <li><a href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=4">4</a></li>
                     <li><a href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=5">5</a></li>
-                    <li><a href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=6"><span
-                            aria-hidden="true">»</span></a></li>
-                </ul>
-            </nav>
+                    <li><a href="/chef/chef_list.html?order=chef_no_follower&amp;term=all&amp;page=6">
+                        <span aria-hidden="true">»</span></a></li>
+                    </ul>
+                </nav>
+            </div> <!--chef_list_div-->
+            <div id="chef_list_follower_div" class="chef_div" style="display:none;"></div>
         </div>
     </div>
 </div>
 
 <div id="right_area" class="col-xs-3">
 
-
 </div><!-- /right_area -->
-<div class="col-xs-12 sub_bg_btm"></div>
-</div><!-- /container -->
 
-<script href="/js/footer.js" ></script>
+<div class="col-xs-12 sub_bg_btm"></div>
+</div> <!-- /container -->
+
+<script src="/js/chef-list.js" ></script >
+<script src="/js/footer.js" ></script>
 {{>layout/footer}}

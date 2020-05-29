@@ -7115,7 +7115,7 @@ a.label_like span {color:#f64000; padding:0 5px 0 0; vertical-align:middle;}
 
 .chef_list4 {padding:30px 21px 30px;}
 .chef_list4 .nav-tabs3 {margin-bottom:15px;}
-.chef_list4 .my_nav2 {margin:0; border-top:1px solid #d2d2d2; background:#efefef; padding:0;}
+.chef_list4 .my_nav2 {margin:0; border-top:1px solid #d2d2d2; background:#efefef; padding:0; cursor: pointer;}
 .chef_list4 .my_nav2 li {display:table-cell; width:1%; text-align:center; font-size:16px; border-right:1px solid #d2d2d2; border-bottom:1px solid #d2d2d2;}
 .chef_list4 .my_nav2 li:last-child {border-right:0;}
 .chef_list4 .my_nav2 li a {padding:12px 0; color:#999; display:inline-block; width:100%; }
@@ -9242,3 +9242,23 @@ box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.40);}
 .common_sp_caption_rv_box {display: table-cell;width:100%;}
 .common_sp_caption_rv_img {display: table-cell; vertical-align: top; padding:0 0 0 6px;}
 .common_sp_caption_rv_img img {border-radius:3px;}
+
+
+/*hmlee 추가*/
+#chef_list_follower_div .media-object{
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    border: 1px solid #e6e6e6;
+}
+#chef_list_follower_div { padding-top:15px;}
+#chef_list_follower_div .media {padding:25px 50px 20px; margin:0 0 8px 0; border-bottom:1px solid #d5d6d7;}
+#chef_list_follower_div .media-left {padding-right:18px;}
+#chef_list_follower_div .media-object {width:66px; height:66px; border-radius:50%; border:1px solid #e6e6e6;}
+#chef_list_follower_div .media-heading {padding:10px 0 0 0; margin:0;}
+#chef_list_follower_div .info_cont_name {font-size:18px; font-weight:bold; margin:0 0 6px 0; line-height:1;}
+#chef_list_follower_div .info_cont_hit {color:#666; font-size:15px; font-weight:200; margin:0;}
+#chef_list_follower_div .info_cont_hit b {margin:0 10px 0 2px;}
+#chef_list_follower_div .info_recipe {padding:18px 0 0 0;}
+#chef_list_follower_div .info_recipe a {margin-right:5px; display:inline-block;}
+#chef_list_follower_div .info_recipe a img {width:140px; height:140px;}
