@@ -15,4 +15,9 @@ public class IndexController {
     public String chef(){
         return "chef-list";
     }
+
+    @GetMapping("/story")
+    public String story(){
+        return "story";
+    }
 }
