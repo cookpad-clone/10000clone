@@ -17,6 +17,8 @@ public class RedisTests {
     public void opsForValue() {
         String key, value, responseValue;
 
+
+
         given: {
             key = "key";
             value = "value";
