@@ -5,11 +5,14 @@ spring:
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+    ddl-auto: none
   devtools:
     lilvereload:
       enable: true
   freemarker:
     cache: false
+
 
   datasource:
     driver-class-name: org.h2.Driver
